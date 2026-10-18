@@ -9,7 +9,7 @@ Built for the **haX.baby — Baby's First Website** hackathon, this project brin
 ## 🌟 Live Demo
 
 - **Website:** https://pip-dream-studio.vercel.app/
-- **GitHub Repository:** Add your GitHub repository URL here.
+- **GitHub Repository:** https://github.com/frostlily2k4/pip-dream-studio
 
 ## 🎨 Preview
 

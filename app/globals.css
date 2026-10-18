@@ -1,0 +1,317 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Theme tokens. "day" = Daydream, "night" = Moonlight.
+   Every colour on the site comes from these variables.
+------------------------------------------------------------------- */
+:root {
+  --bg: #fff8f1;
+  --surface: #fffdf9;
+  --surface-2: #fbf1ea;
+  --ink: #5c4033;
+  --ink-soft: #7a5a4b;
+  --berry: #a34063;
+  --on-berry: #ffffff;
+  --blush: #f1dce7;
+  --lavender: #e9e4f3;
+  --gold: #f4cc75;
+  --line: rgba(92, 64, 51, 0.16);
+  --stitch: rgba(163, 64, 99, 0.35);
+  --shadow: 0 1px 0 rgba(92, 64, 51, 0.06), 0 14px 30px -18px rgba(92, 64, 51, 0.35);
+  --focus: #a34063;
+  --wallpaper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='%23a34063' fill-opacity='0.07'%3E%3Cpath d='M30 22l2.4 5 5.4.6-4 3.7 1.1 5.3-4.9-2.7-4.9 2.7 1.1-5.3-4-3.7 5.4-.6z'/%3E%3Ccircle cx='92' cy='84' r='2'/%3E%3Ccircle cx='70' cy='30' r='1.2'/%3E%3C/g%3E%3C/svg%3E");
+  --map-sky: #e9e4f3;
+  --map-cloud: #fffdf9;
+  --map-ground: #f1dce7;
+  --footer-bg: #29243f;
+  --header-h: 72px;
+  color-scheme: light;
+}
+
+:root[data-theme="night"] {
+  --bg: #29243f;
+  --surface: #352e52;
+  --surface-2: #2f2948;
+  --ink: #fff1e7;
+  --ink-soft: #ddd0e2;
+  --berry: #f4a9c4;
+  --on-berry: #29243f;
+  --blush: #4b3b5f;
+  --lavender: #3c3460;
+  --gold: #f4cc75;
+  --line: rgba(255, 241, 231, 0.16);
+  --stitch: rgba(244, 204, 117, 0.4);
+  --shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 18px 34px -18px rgba(0, 0, 0, 0.6);
+  --focus: #f4cc75;
+  --wallpaper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='%23f4cc75' fill-opacity='0.12'%3E%3Cpath d='M30 22l2.4 5 5.4.6-4 3.7 1.1 5.3-4.9-2.7-4.9 2.7 1.1-5.3-4-3.7 5.4-.6z'/%3E%3Ccircle cx='92' cy='84' r='2'/%3E%3Ccircle cx='70' cy='30' r='1.2'/%3E%3C/g%3E%3C/svg%3E");
+  --map-sky: #332c55;
+  --map-cloud: #4a4170;
+  --map-ground: #40365f;
+  --footer-bg: #1d192f;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-berry: var(--berry);
+  --color-on-berry: var(--on-berry);
+  --color-blush: var(--blush);
+  --color-lavender: var(--lavender);
+  --color-gold: var(--gold);
+  --color-line: var(--line);
+  --color-night: #29243f;
+  --color-footer: var(--footer-bg);
+  --color-night-ink: #fff1e7;
+  --font-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-round: "Fredoka", "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Nunito Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+/* ------------------------------------------------------------------
+   Base
+------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 12px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  /* A quiet, tiled star wallpaper, like an early homepage background. */
+  background-image: var(--wallpaper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+p { text-wrap: pretty; }
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+::selection { background: var(--gold); color: #5c4033; }
+
+}
+
+@layer components {
+/* ------------------------------------------------------------------
+   Reusable pieces
+------------------------------------------------------------------- */
+.container-pip {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 768px) { .container-pip { padding-inline: 2rem; } }
+
+.section-pad { padding-block: 4.5rem; }
+@media (min-width: 768px) { .section-pad { padding-block: 6.5rem; } }
+
+/* Buttons: pill-shaped, chunky, toy-like. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.65rem 1.35rem;
+  border-radius: 999px;
+  font-family: var(--font-round);
+  font-weight: 500;
+  font-size: 1.02rem;
+  line-height: 1.1;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.25s ease, color 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  user-select: none;
+}
+.btn:active { transform: translateY(2px); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.btn-primary {
+  background: var(--berry);
+  color: var(--on-berry);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--berry) 60%, #2a1a22);
+}
+.btn-primary:hover { transform: translateY(-1px); }
+.btn-primary:active { box-shadow: 0 2px 0 color-mix(in srgb, var(--berry) 60%, #2a1a22); }
+
+.btn-soft {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line);
+  box-shadow: 0 3px 0 var(--line);
+}
+.btn-soft:hover { border-color: var(--berry); }
+
+/* Chips that can be "pressed" (presets, colours, moods). */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-round);
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+}
+.chip:hover { border-color: var(--berry); }
+.chip:active { transform: scale(0.97); }
+.chip[aria-pressed="true"] {
+  border-color: var(--berry);
+  background: color-mix(in srgb, var(--berry) 13%, var(--surface));
+}
+.chip[aria-pressed="true"]::after {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--berry);
+}
+
+/* "Stitched" seam, like a plush toy or a quilted blanket. */
+.stitch { position: relative; }
+.stitch::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 2px dashed var(--stitch);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Little desktop window from an old computer, used for projects. */
+.window {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.window-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 2px solid var(--line);
+  font-family: var(--font-round);
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+.window-dot { width: 12px; height: 12px; border-radius: 999px; border: 2px solid var(--line); }
+
+/* Artwork frame. The pictures have creamy backgrounds, so they sit in a
+   matching "nursery window" and their edges are softly faded. */
+.art-frame {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.art-img {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 7%, #000 93%, transparent),
+    linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 7%, #000 93%, transparent),
+    linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
+  mask-composite: intersect;
+}
+.arch { border-radius: 999px 999px 28px 28px; }
+
+/* Ruled notebook paper for Pip's character sheet. */
+.notebook {
+  position: relative;
+  background-color: var(--surface);
+}
+.notebook::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1.1rem;
+  border-left: 2px solid color-mix(in srgb, var(--berry) 45%, transparent);
+}
+@media (min-width: 640px) { .notebook::before { left: 1.9rem; } }
+}
+
+/* ------------------------------------------------------------------
+   Gentle motion. All of it is switched off for reduced motion below.
+------------------------------------------------------------------- */
+@keyframes pip-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes pip-twinkle { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.85); } }
+@keyframes pip-boop { 0% { transform: scale(1); } 35% { transform: scale(1.05) rotate(-2deg); } 70% { transform: scale(0.98) rotate(1deg); } 100% { transform: scale(1); } }
+@keyframes pip-rise { 0% { opacity: 0; transform: translate(0, 10px) scale(0.8); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--drift, 12px), -90px) scale(1.1); } }
+@keyframes pip-sway { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
+@keyframes pip-scene-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes pip-pop { 0% { opacity: 0; transform: scale(0.85) translateY(6px); } 100% { opacity: 1; transform: none; } }
+@keyframes pip-wiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-14deg) scale(1.15); } 75% { transform: rotate(10deg) scale(1.1); } }
+@keyframes pip-fall { 0% { transform: translate(-40px, -60px) rotate(-30deg); opacity: 0; } 30% { opacity: 1; } 100% { transform: translate(0, 0) rotate(0); opacity: 1; } }
+@keyframes pip-ring { 0% { r: 20; opacity: 0.8; } 100% { r: 38; opacity: 0; } }
+@keyframes pip-sparkle { 0% { opacity: 0.9; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -120%) scale(0.3); } }
+
+.anim-float { animation: pip-float 6s ease-in-out infinite; }
+.anim-twinkle { animation: pip-twinkle 4.5s ease-in-out infinite; }
+.anim-boop { animation: pip-boop 0.6s ease; }
+.anim-sway { animation: pip-sway 1.6s ease-in-out infinite; transform-origin: 50% 90%; }
+.anim-scene { animation: pip-scene-in 0.45s ease both; }
+.anim-pop { animation: pip-pop 0.35s ease both; }
+.anim-wiggle { animation: pip-wiggle 0.5s ease; }
+.anim-fall { animation: pip-fall 2.2s cubic-bezier(.3,.7,.4,1) both; }
+.music-note {
+  position: absolute;
+  animation: pip-rise 2.2s ease-out infinite;
+  pointer-events: none;
+}
+.map-ring { animation: pip-ring 1.8s ease-out infinite; }
+
+.sparkle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0;
+  color: var(--gold);
+}
+.sparkle.is-live { animation: pip-sparkle 0.7s ease-out forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .music-note, .map-ring, .sparkle { display: none; }
+}
